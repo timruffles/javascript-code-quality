@@ -17,7 +17,7 @@
     <div class="slides">
 
 <section data-markdown class=front><script type="text/template">
-# The ways my code sucks
+# Code quality is meaningless
 
 [@timruffles](http://twitter.com/timruffles)
 [@sidekicksrc](http://twitter.com/sidekicksrc)
@@ -32,10 +32,11 @@
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Application quality
+## Not application quality
 
 - Performance slow
 - Doesn't work: correctness
+- Is confusing: design
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -43,7 +44,7 @@
 
 - and doesn't want to
 - like 'plumbing quality': just want the toilet to flush
-- bad code with good QA is better for users than good code with bad QA
+- can have good app with bad code, and reverse
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -89,46 +90,20 @@
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Code quality depends on us
+## What 'Quality' means depends on us
+</script></section>
 
-- Is it good for us?
-- i.e 'my kind of code'
+
+<section data-markdown><script type="text/template">
+## Unfortunately...
 </script></section>
 
 <section data-markdown><script type="text/template">
-## ...and doesn't
-
-- Inconsistent
-- Inextensible
-- Unidiomatic
-- Suprising
-</script></section>
-
-<section data-markdown data-state=title><script type="text/template">
-## We can agree on the adjectives for good code
-</script></section>
-
-<section data-markdown><script type="text/template">
-## Same goals, different meanings
-
-- Simple
-- Concise
-- Readable
-- Extensible
-- Testable
-- A bit like 'fair' in politics
-</script></section>
-
-<section data-markdown data-state=title><script type="text/template">
-## Unfortunately
-</script></section>
-
-<section data-markdown data-state=title><script type="text/template">
 ## Programmers are faddish and emotional people
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Code quality is the most subjective bit of coding
+## Quality is the most subjective bit of coding
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -153,13 +128,40 @@ go a@(Internal al ar abyte abits) ak b@(Internal bl br bbyte bbits) bk
 </section>
 
 <section data-markdown><script type="text/template">
-## Leave taste aside
+## Can we leave taste aside...?
 
 - OOP or FP or procedural
 </script></section>
 
+<section data-markdown><script type="text/template">
+## ...what's left?
+
+- "This does the same things 3 ways"
+- "I can change anything!"
+- "This looks like Java!"
+- "WTF?! Why did that happen?!"
+</script></section>
+
 <section data-markdown data-state=title><script type="text/template">
-## Is there any agreement?
+## So code quality can be given a meaning
+</script></section>
+
+<section data-markdown><script type="text/template">
+## We can agree on the adjectives for good code
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ...or bad
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Aspects of quality code
+
+- Concise
+- Simple
+- Readable
+- Extensible
+- Testable
 </script></section>
 
 <section data-markdown data-state=title><script type="text/template">
@@ -207,26 +209,17 @@ function email(string) {
 </script></section>
 
 <section data-markdown><script type="text/template">
-## How far to take?
-
-- functions: parameterised at run time
-- macros: parameterised at compile time
-- Haskell: laziness gives similar power to macros
-</script></section>
-
-<section data-markdown><script type="text/template">
-## e.g
-
-- node: `req/res`
-- need to keep passing through stack
-- in Scala could be an implicit, in Haskell could be a monad
-</script></section>
-
-<section data-markdown><script type="text/template">
 ## How to track?
 
-- flay-js
+- flay (hack it to do JS with esprima), flay-js?
 - structural duplication detection
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Flay in Sidekick
+
+![DRY: don't repeat yourself](img/dry-detail.png)
+
 </script></section>
 
 <section data-markdown data-state=title><script type="text/template">
@@ -262,83 +255,19 @@ $("form").submit(function(el) {
 </script></section>
 
 <section data-markdown data-state=title><script type="text/template">
+## Simple
+</script></section>
+
+<section data-markdown><script type="text/template">
 ## KISS
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Nobody tries to write complex code
+## Actually, nobody tries to write complex code
 </script></section>
 
 <section data-markdown><script type="text/template">
-## But this is a tricky word
-</script></section>
-
-<section data-markdown><script type="text/template">
-## 'Simple' code
-
-```javascript
-function main() {
-  // ... 5000 lines
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## 'Simple' code
-
-```javascript
-function Account() {
-}
-Account.prototype.transfer = function(anotherAccount) {
-  // very little work per method
-  return new AccountTransfer(this,anotherAccount).run();
-}
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## 'Simple' code
-
-- every problem split into many files, where is any work actually done?!
-- vs C code, mostly 20-30 files in a project, no folders
-
-```javascript
-$ find src -type d | wc -l
-152
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## 'Simple' code
-
-- low detail (magic/abstraction)
-
-```
-<h2>{{ framework.name }} is HTML made awesome!</h2>
-```
-</script></section>
-
-<section data-markdown><script type="text/template">
-## 'Simple' code
-
-- low variety
-
-```javascript
-knex("users")
-  .where("age",">",18)
-  .limit(5)
-```
-
-```javascript
-sql("SELECT * FROM users WHERE age > 18");
-```
-
-```javascript
-open("tcp://google.com")
-open("tcp://some-socket.sock")
-open("/dev/tty18")
-open("path/to/some-file")
-```
+## So this is a tricky word
 </script></section>
 
 <section data-markdown data-state=title><script type="text/template">
@@ -360,17 +289,76 @@ open("path/to/some-file")
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Simple alternatives
+## Flavours of simple
 
 - low number of concepts
-  - procedural C, JS-for-everything, everything-is-a-file
 - low detail
-  - OOP, FP - abstraction
 - few responsibilies
-  - factoring; language-level in clj or HS (split IO, context into macros/monads)
+- low difficulty
 - few dependencies/interactions
-- low branching
-  - logically simple
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Low number of concepts
+
+- no OOP, FP, advanced language features
+- ORM vs SQL
+
+```javascript
+function main() {
+  // ... 5000 lines
+}
+```
+
+```javascript
+open("tcp://google.com")
+open("tcp://some-socket.sock")
+open("/dev/tty18")
+open("path/to/some-file")
+```
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Low detail
+
+- attempt to abstract everything
+
+```javascript
+function Account() {
+}
+Account.prototype.transfer = function(anotherAccount) {
+  // very little work per method
+  return new AccountTransfer(this,anotherAccount).run();
+}
+```
+```html
+<h2>{{ framework.name }} is HTML made awesome!</h2>
+```
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Few responsibilies
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Low difficulty
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Few dependencies
+
+```javascript
+function sprintf(format,...args) {
+  // completely depends on input
+}
+function UserView() {
+  // depends on everything
+  this.el = $("#user");
+  this.user = $.get("/users/" + window.user.id);
+}
+```
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -381,30 +369,30 @@ open("path/to/some-file")
 ## Mesurable?
 
 <ul>
-<li class=maybe>low number of concepts: 'reading age' of code
-<li class=maybe>low detail: difficult, linguistic
-<li class=maybe>few responsibilies: possibly, heruistic
+<li class=maybe>low number of concepts
+<li class=maybe>low detail
+<li class=maybe>few responsibilies
+<li class=yes>low difficulty
 <li class=yes>few dependencies/interactions
-<li class=yes>low branching
 </ul>
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Low branching
+## Low difficulty
 
-- code that doesn't have much to do can be made simple
+- code that doesn't have much to do is easy to understand
 - global vs local
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Global - low branching
+## Global - low difficulty
 
 - "write a static site generator with markdown"
 - simple code - straight transformation
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Global - high branching
+## Global - high difficulty
 
 - "integrate the UK's medical records"
 - OMG complex, operations, integration, special cases
@@ -415,16 +403,18 @@ open("path/to/some-file")
 
 - 500 LOC functions: doing a lot
 - 10 LOC functions: each function easy to understand
+- 15 variables with many branches
+- no branches, simple transform
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Measuring global complexity
+## Measuring global difficulty
 
 - How frightened are you of your code/deploy/monitoring?
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Measuring local complexity
+## Measuring local difficulty
 
 - how many paths?
 
@@ -439,9 +429,10 @@ if(y) {
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Measuring local complexity
+## Branching factor
 
-- 4 tt, tf, ft, ff
+- 4 paths: tt, tf, ft, ff
+- Cyclomatic complexity: 3
 
 ```javascript
 if(x) {
@@ -453,7 +444,104 @@ if(y) {
 ```
 </script></section>
 
+<section data-markdown><script type="text/template">
+## Variable count
+
+```javascript
+$digest: function() {
+  var watch, value, last,
+      watchers,
+      asyncQueue = this.$$asyncQueue,
+      postDigestQueue = this.$$postDigestQueue,
+      length,
+      dirty, ttl = TTL,
+      next, current, target = this,
+      watchLog = [],
+      logIdx, logMsg, asyncTask;
+
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## ...continued
+
+```javascript
+  // Insanity Warning: scope depth-first traversal
+  // yes, this code is a bit crazy, but it works and we have tests to prove it!
+  // this piece should be kept in sync with the traversal in $broadcast
+  if (!(next = (current.$$childHead || (current !== target && current.$$nextSibling)))) {
+    while(current !== target && !(next = current.$$nextSibling)) {
+      current = current.$parent;
+    }
+  }
+} while ((current = next));
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## How many things can you keep in your head at once?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Metrics for difficulty
+
+- logical lines of code
+- cylomatic complexity: branching
+- halstead complexity: operands and operations
+- ComplexityReport offers both, JSHint has CC cutoff
+</script></section>
+
+
 <section data-markdown data-state=title><script type="text/template">
+## Measuring dependencies
+</script></section>
+
+<section data-markdown><script type="text/template">
+## The more interconnected the code, the harder to change
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Worst type: temporaral
+
+- e.g `app.js` touches global variable `user`, `user_view.js` relies on it
+- very hard to see
+</script></section>
+
+<section data-markdown><script type="text/template">
+## DOM = global
+
+- `$(".class")` is a global
+- always moduarlise DOM, passing in element to components
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Modularity
+
+- doesn't just mean having a module system
+- unless the code is largely independent, it's not modular
+
+```
+// global variable - regardless of the 'module' in there
+require("models/user.js").userCount += 1;
+// exactly the same
+(global || window).require("models/user.js").userCount += 1;
+```
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Tools
+
+- ComplexityReport - entanglement metric
+- detects nth level dependencies (e.g A -> B -> C)
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Readable
+</script></section>
+
+<section data-markdown><script type="text/template">
 ## Idiomatic
 </script></section>
 
@@ -482,6 +570,14 @@ if(y) {
 </script></section>
 
 <section data-markdown><script type="text/template">
+## ...and not bringing other languages with you
+</script></section>
+
+<section data-markdown><script type="text/template">
+## The obvious tool to use is...
+</script></section>
+
+<section data-markdown><script type="text/template">
 ## ESLint
 
 - uses `esprima` parser
@@ -500,21 +596,52 @@ if(y) {
 - would be nice to have library/framework linters
 </script></section>
 
-<section data-markdown data-state=title><script type="text/template">
-## Familiar
+<section data-markdown><script type="text/template">
+## Good naming
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Is it obvious to your reader?
-</script></section>
+## A recipe
 
-<section data-markdown data-state=title><script type="text/template">
-## Extensible
+- longer the bigger the context
+- no single letters beyond `i`, `k`, and `v`
+- avoid abbreviation, hard to be consistent
+- no types
+- replace trivial comments with variables or functions
 </script></section>
 
 <section data-markdown><script type="text/template">
-> If you’re willing to restrict the flexibility of your approach, you can almost always do something better
-John Carmack
+## Good comments
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Comment when
+
+- intention not clear from code
+- a variable or function name not enough
+- there's a surprise
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Comments are not documentation
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Documentation is...
+
+- example code (tests are good, cf. doctest.js)
+- explanations of the system at high-level
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Reusable
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Happens a lot less than you think
+
+- overpromised
+- how often is what you're writing generic enough to be reused?
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -525,35 +652,74 @@ John Carmack
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Precluding
+> If you’re willing to restrict the flexibility of your approach, you can almost always do something better
 
-- Javascript has VERY primitive privacy
-- `_aPrivate` indicates intent without stopping extension
-
-```javascript
-var Public = (function() {
-
-  var cantSeeMe = //;
-
-  function Public() {
-    privateA();
-  }
-
-  function privateA() {
-    cantSeeMe;
-  }
-
-  return Public;
-})();
-```
+<cite>John Carmack</cite>
 </script></section>
 
 <section data-markdown><script type="text/template">
 ## More generic, more reusable
 
 - without effort
+- e.g lodash
+- FP achieves 'reuse in the small', OOP hasn't (too specific)
 </script></section>
 
+<section data-markdown data-state=title><script type="text/template">
+## Extension/changeable
+</script></section>
+
+<section data-markdown><script type="text/template">
+## What prevents change?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Coupling
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Large APIs
+- the more methods a module has, the more dependencies it'll grow
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Preventing ad-hoc reuse
+
+- Javascript has VERY primitive privacy
+
+```javascript
+var Public = (function() {
+  var cantSeeMe = //;
+  function Public() {
+    privateA();
+  }
+  function privateA() {
+    cantSeeMe;
+  }
+  return Public;
+})();
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Allowing ad-hoc modification
+
+- the C/python way: `_somethingPrivate`
+- good for internal code, more risky for external
+
+```javascript
+var Public = (function() {
+  function Public() {
+    privateA();
+  }
+  Public._canSeeMe = //;
+  Public._privateA = function () {
+    this._canSeeMe;
+  }
+  return Public;
+})();
+```
+</script></section>
 <section data-markdown data-state=title><script type="text/template">
 ## Testable
 </script></section>
@@ -562,12 +728,8 @@ var Public = (function() {
 ## Test 0
 </script></section>
 
-<section data-markdown data-state=title><script type="text/template">
+<section data-markdown><script type="text/template">
 ## Can you test your code?
-</script></section>
-
-<section data-markdown ><script type="text/template">
-## Test 0: the result is interesting
 </script></section>
 
 <section data-markdown ><script type="text/template">
@@ -646,8 +808,43 @@ it("formats correctly",function() {
 ```
 </script></section>
 
+<section data-markdown><script type="text/template">
+## Correlates with rest of quality
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Anti-testable code is...
+
+- coupled
+- closed to modification
+- complex (doing > 1 thing)
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Measuring tests
+
+- istanbul: measures % of LOC run by tests
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Putting it all togther
+
+- CI server running tests and coverage tools
+- Also run ComplexityReport, Flay, JSHint
+- JSHint fast enough for a pre-commit hook, often good as 'poor man's compiler'
+</script></section>
+
+<section data-markdown><script type="text/template">
+## All the tools
+
+- JSHint/ESLint/JSLint
+- ComplexityReport
+- Flay
+- Istanbul
+</script></section>
+
 <section data-markdown data-state=title><script type="text/template">
-## How to use quality measures?
+## Now you've measured the quality, what now?
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -655,7 +852,11 @@ it("formats correctly",function() {
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Yes: can be bad
+## Yes
+</script></section>
+
+<section data-markdown><script type="text/template">
+## That can be bad
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -703,6 +904,7 @@ it("formats correctly",function() {
 # Any questions?
 
 ### [@timruffles](http://twitter.com/timruffles)
+### [sidekickjs.com](https://www.sidekickjs.com)
 </script></section>
 
 <section data-markdown ><script type="text/template">
