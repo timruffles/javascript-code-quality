@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Functional Programming In Javascript</title>
+  <title>Code quality</title>
   
   <link rel="stylesheet" href="reveal/css/reveal.min.css">
   <link rel="stylesheet" href="reveal/lib/css/googlecode.css">
@@ -17,11 +17,687 @@
     <div class="slides">
 
 <section data-markdown class=front><script type="text/template">
-# SOMETHING!!
+# The ways my code sucks
 
 [@timruffles](http://twitter.com/timruffles)
 [@sidekicksrc](http://twitter.com/sidekicksrc)
 </script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Code quality
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## WTF is code quality?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Application quality
+
+- Performance slow
+- Doesn't work: correctness
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Everything the user can't see
+
+- and doesn't want to
+- like 'plumbing quality': just want the toilet to flush
+- bad code with good QA is better for users than good code with bad QA
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Who does it anger?
+
+- app quality: users
+- code quality: programmers
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Code quality is for programmers
+</script></section>
+
+<section data-markdown><script type="text/template">
+## WTF is good code?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## WTF is a good film?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## How can a film be 4/5 stars for everyone?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Film quality...
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ...depends on the person
+
+- I'm not going to rate 'Fast n Furious 6' 5/5
+- Might have done when I was 14
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ...and doesn't
+
+- e.g out of focus, mistakes in plot
+- well made, but of a genre I don't like
+- wish film critics realised this
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Code quality depends on us
+
+- Is it good for us?
+- i.e 'my kind of code'
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ...and doesn't
+
+- Inconsistent
+- Inextensible
+- Unidiomatic
+- Suprising
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## We can agree on the adjectives for good code
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Same goals, different meanings
+
+- Simple
+- Concise
+- Readable
+- Extensible
+- Testable
+- A bit like 'fair' in politics
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Unfortunately
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Programmers are faddish and emotional people
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Code quality is the most subjective bit of coding
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Idiomatic Haskell
+
+```haskell
+go a@(Internal al ar abyte abits) ak b@(Internal bl br bbyte bbits) bk
+  | (dbyte, dbits) < min (abyte, abits) (bbyte, bbits) = fork a ak b bk
+  | otherwise =
+       case compare (abyte, abits) (bbyte, bbits) of
+         LT -> splitA a ak b bk
+         GT -> splitB a ak b bk
+         EQ -> link a (go al ak bl bk) (go ar (minKey ar) br (minKey br))
+```
+</script></section>
+
+<section>
+<h2>Or 'good OOP'</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/garybernhardt">@garybernhardt</a> For example: Looking at this code is a great way to demonstrate how terrible it is to treat AR as a DAO: <a href="http://t.co/NkxWODIb">http://t.co/NkxWODIb</a></p>&mdash; DHH (@dhh) <a href="https://twitter.com/dhh/statuses/280745523168808962">December 17, 2012</a></blockquote>
+
+</section>
+
+<section data-markdown><script type="text/template">
+## Leave taste aside
+
+- OOP or FP or procedural
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Is there any agreement?
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Concise
+</script></section>
+
+<section data-markdown><script type="text/template">
+
+> A sentence should contain no unnecessary words, a paragraph no unnecessary sentences.
+
+<cite>William Strunk Jr. in <em>Elements of Style</em></cite>
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Flabby code
+
+```javascript
+function email(string) {
+  if(emailRe.test(string)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Don't repeat yourself
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## DRY
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Programming is pretty much DRY applied to life
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Problems of non-DRY code
+
+- fragile: change in n-1 places = bug
+- maintainance overhead
+</script></section>
+
+<section data-markdown><script type="text/template">
+## How far to take?
+
+- functions: parameterised at run time
+- macros: parameterised at compile time
+- Haskell: laziness gives similar power to macros
+</script></section>
+
+<section data-markdown><script type="text/template">
+## e.g
+
+- node: `req/res`
+- need to keep passing through stack
+- in Scala could be an implicit, in Haskell could be a monad
+</script></section>
+
+<section data-markdown><script type="text/template">
+## How to track?
+
+- flay-js
+- structural duplication detection
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Single point of truth
+</script></section>
+
+<section data-markdown><script type="text/template">
+## SPOT
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Related to DRY
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Each fact about the system captured once
+</script></section>
+
+<section data-markdown><script type="text/template">
+## e.g
+
+- How old does a user need to be?
+- Scatter in view, model etc: bad
+- Capture the knowledge in one place
+- More complex things: capture in one function
+
+```javascript
+$("form").submit(function(el) {
+  if($(el).find("[name=age]").val() > 18) {
+  }
+})
+```
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## KISS
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Nobody tries to write complex code
+</script></section>
+
+<section data-markdown><script type="text/template">
+## But this is a tricky word
+</script></section>
+
+<section data-markdown><script type="text/template">
+## 'Simple' code
+
+```javascript
+function main() {
+  // ... 5000 lines
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## 'Simple' code
+
+```javascript
+function Account() {
+}
+Account.prototype.transfer = function(anotherAccount) {
+  // very little work per method
+  return new AccountTransfer(this,anotherAccount).run();
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## 'Simple' code
+
+- every problem split into many files, where is any work actually done?!
+- vs C code, mostly 20-30 files in a project, no folders
+
+```javascript
+$ find src -type d | wc -l
+152
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## 'Simple' code
+
+- low detail (magic/abstraction)
+
+```
+<h2>{{ framework.name }} is HTML made awesome!</h2>
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## 'Simple' code
+
+- low variety
+
+```javascript
+knex("users")
+  .where("age",">",18)
+  .limit(5)
+```
+
+```javascript
+sql("SELECT * FROM users WHERE age > 18");
+```
+
+```javascript
+open("tcp://google.com")
+open("tcp://some-socket.sock")
+open("/dev/tty18")
+open("path/to/some-file")
+```
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## We should probably abandon 'simple' and 'complex'
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Simple
+
+> from Latin <em>simplus</em>. Originally referred to a medicine made from one constituent
+
+- vs complex, something made from many parts
+- Rich Hickey's definition
+- 'doing one thing well'
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Instead
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Simple alternatives
+
+- low number of concepts
+  - procedural C, JS-for-everything, everything-is-a-file
+- low detail
+  - OOP, FP - abstraction
+- few responsibilies
+  - factoring; language-level in clj or HS (split IO, context into macros/monads)
+- few dependencies/interactions
+- low branching
+  - logically simple
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Can we measure these?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Mesurable?
+
+<ul>
+<li class=maybe>low number of concepts: 'reading age' of code
+<li class=maybe>low detail: difficult, linguistic
+<li class=maybe>few responsibilies: possibly, heruistic
+<li class=yes>few dependencies/interactions
+<li class=yes>low branching
+</ul>
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Low branching
+
+- code that doesn't have much to do can be made simple
+- global vs local
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Global - low branching
+
+- "write a static site generator with markdown"
+- simple code - straight transformation
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Global - high branching
+
+- "integrate the UK's medical records"
+- OMG complex, operations, integration, special cases
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Local
+
+- 500 LOC functions: doing a lot
+- 10 LOC functions: each function easy to understand
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Measuring global complexity
+
+- How frightened are you of your code/deploy/monitoring?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Measuring local complexity
+
+- how many paths?
+
+```javascript
+if(x) {
+} else {
+}
+if(y) {
+} else {
+}
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Measuring local complexity
+
+- 4 tt, tf, ft, ff
+
+```javascript
+if(x) {
+} else {
+}
+if(y) {
+} else {
+}
+```
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Idiomatic
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Means specific to the language
+</script></section>
+
+<section data-markdown><script type="text/template">
+## e.g Javascript
+
+```javascript
+;(function(undefined) {
+
+  window.something = something;
+  
+  function something(n,opts) {
+    var user = opts && opts.user;
+    var n = run == null ? 0 : n;
+    var names = [].slice.call(arguments,2);
+    for(var p in x) {
+      if(x.hasOwnProperty(p)) // ...
+    }
+  }
+})();
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ESLint
+
+- uses `esprima` parser
+- much nicer code-quality than JSHint's Pratt parser
+</script></section>
+
+<section data-markdown><script type="text/template">
+## JSHint
+
+- featureful
+</script></section>
+
+<section data-markdown><script type="text/template">
+## AngularLint?
+
+- would be nice to have library/framework linters
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Familiar
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Is it obvious to your reader?
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Extensible
+</script></section>
+
+<section data-markdown><script type="text/template">
+> If you’re willing to restrict the flexibility of your approach, you can almost always do something better
+John Carmack
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Is not good per se
+
+- [AbstractSingletonProxyFactoryBean](http://docs.spring.io/spring/docs/2.5.x/api/org/springframework/aop/framework/AbstractSingletonProxyFactoryBean.html)
+- Where does your code want extension?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Precluding
+
+- Javascript has VERY primitive privacy
+- `_aPrivate` indicates intent without stopping extension
+
+```javascript
+var Public = (function() {
+
+  var cantSeeMe = //;
+
+  function Public() {
+    privateA();
+  }
+
+  function privateA() {
+    cantSeeMe;
+  }
+
+  return Public;
+})();
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+## More generic, more reusable
+
+- without effort
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Testable
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Test 0
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## Can you test your code?
+</script></section>
+
+<section data-markdown ><script type="text/template">
+## Test 0: the result is interesting
+</script></section>
+
+<section data-markdown ><script type="text/template">
+## Sometimes, easily
+</script></section>
+
+<section data-markdown><script type="text/template">
+```javascript
+function sprintf(str) {
+  var params = [].slice.call(arguments,1)
+  var types = {
+    "%s": function(x) { return x + "" }
+  }
+  var matches = 0
+  return str.replace(/(%[is])/g,function(match) {
+    return types[match](params[matches++])
+  })
+}
+
+it("formats correctly",function() {
+  assert.equal("MU!",sprintf("%s","MU!"));
+})
+```
+</script></section>
+
+<section data-markdown ><script type="text/template">
+## Often this simple?
+</script></section>
+
+<section data-markdown ><script type="text/template">
+## Get real
+</script></section>
+
+<section data-markdown class=small-code ><script type="text/template">
+
+```javascript
+'generateResetToken': function (req, res) {
+    var email = req.body.email;
+
+    api.users.generateResetToken(email).then(function (token) {
+        var siteLink = '<a href="' + config().url + '">' + config().url + '</a>',
+            resetUrl = config().url.replace(/\/$/, '') +  '/ghost/reset/' + token + '/',
+            resetLink = '<a href="' + resetUrl + '">' + resetUrl + '</a>',
+            message = {
+                to: email,
+                subject: 'Reset Password',
+                html: '<p><strong>Hello!</strong></p>' +
+                      '<p>A request has been made to reset the password on the site ' + siteLink + '.</p>' +
+                      '<p>Please follow the link below to reset your password:<br><br>' + resetLink + '</p>' +
+                      '<p>Ghost</p>'
+            };
+
+        return mailer.send(message);
+    }).then(function success() {
+        var notification = {
+            type: 'success',
+            message: 'Check your email for further instructions',
+            status: 'passive',
+            id: 'successresetpw'
+        };
+
+        return api.notifications.add(notification).then(function () {
+            res.json(200, {redirect: config.paths().webroot + '/ghost/signin/'});
+        });
+
+    }, function failure(error) {
+        // TODO: This is kind of sketchy, depends on magic string error.message from Bookshelf.
+        // TODO: It's debatable whether we want to just tell the user we sent the email in this case or not, we are giving away sensitive info here.
+        if (error && error.message === 'EmptyResponse') {
+            error.message = "Invalid email address";
+        }
+
+        res.json(401, {error: error.message});
+    });
+},
+```
+</script></section>
+
+<section data-markdown data-state=title><script type="text/template">
+## How to use quality measures?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Measured == managed?
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Yes: can be bad
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Use responsibly
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Weigh the airplane
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Gaming is easy
+</script></section>
+
+<section data-markdown><script type="text/template">
+## So...
+</script></section>
+
+<section data-markdown><script type="text/template">
+## ∞-junior, idiot-savant
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Conversation starter
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Wall o’metrics
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Stay proud of your team’s code
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Tools are good source of information
+</script></section>
+
+<section data-markdown><script type="text/template">
+## You’re the expert
+</script></section>
+
 
 <section data-markdown ><script type="text/template">
 # Any questions?
@@ -45,6 +721,8 @@
 <!-- reveal -->
 <script src="reveal/lib/js/head.min.js"></script>
 <script src="reveal/js/reveal.min.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 <script>
   Reveal.initialize({
 
@@ -92,7 +770,7 @@
 
         // Interreveal/pret Markdown in <section> elements
     { src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-    { src: 'reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); }, callback: function() { baconDemo() } },
+    { src: 'reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); }} ,
 
         // Syntareveal/x highlight for <code> elements
           { src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
